@@ -4,11 +4,15 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-
-public class HTableCreate {
+public class HTableCreate implements HiveQueryGenerator {
+	
+	public static final String STRING = "STRING";
+	public static final String INT = "INT";
+	public static final String DOUBLE = "DOUBLE";
+	public static final String TIMESTAMP = "TIMESTAMP";
+	public static final String VARCHAR = "VARCHAR";
 	
 	private String sQuery = "";
-	private String sTableName = "";
 	private String sProperties = "";
 	private String sRowFormat = "ROW FORMAT DELIMITED FIELDS TERMINATED BY ','";
 	private String sStoredAs = "STORED AS SEQUENCEFILE";
