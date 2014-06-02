@@ -75,6 +75,9 @@ public class QuerySelectorProcessor {
             else if(outputAttribute instanceof OutputAttributeExtension){
 
             }
+
+            if( (selectionListSize > 1 ) && ( (i+1) < selectionListSize) )
+                selectionString += " , ";
         }
 
         return  selectionString;
@@ -90,13 +93,22 @@ public class QuerySelectorProcessor {
 
         if(expression instanceof Variable){
 
+            boolean multipleAttr = false;
+
+            if(expressionValue.trim().equalsIgnoreCase("") == false)
+                multipleAttr = true;
+
             Variable variable = (Variable)expression;
             expressionValue += handleVariable(variable);
 
             if(variable.getAttributeName().equals(rename) == false){
                 expressionValue += " AS " + rename;
             }
+
+            if(multipleAttr)
+                expressionValue += ","  ;
         }
+
 
         return expressionValue;
     }
@@ -117,13 +129,23 @@ public class QuerySelectorProcessor {
 
             if(expression instanceof Variable){
 
+                boolean multipleAttr = false;
+
+                if(expressionValue.trim().equalsIgnoreCase("") == false)
+                    multipleAttr = true;
+
+
                 Variable variable = (Variable)expression;
                 expressionValue +=  " "+ complexAttrName + "( " + handleVariable(variable) + " )";
 
                 if(variable.getAttributeName().equals(rename) == false){
                     expressionValue += " AS " + rename;
+
+                    if(multipleAttr)
+                        expressionValue += ","  ;
                 }
             }
+
         }
 
         return expressionValue;
@@ -146,6 +168,11 @@ public class QuerySelectorProcessor {
             Variable variable = groupByList.get(i);
 
             groupBy += "  " + handleVariable(variable);
+
+            if( (groupByListSize > 1 ) && ( (i+1) < groupByListSize) )
+                groupBy += " , ";
+
+
         }
 
         return groupBy;
