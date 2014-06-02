@@ -1,6 +1,7 @@
 package org.wso2.carbon.siddhihive.headerprocessor;
 
 
+import org.wso2.carbon.siddhihive.utils.ConditionHandler;
 import org.wso2.carbon.siddhihive.utils.Constants;
 import org.wso2.siddhi.query.api.definition.StreamDefinition;
 import org.wso2.siddhi.query.api.query.input.Stream;
@@ -22,7 +23,7 @@ public class WindowStreamHandler implements StreamHandler {
 
     public String generateFromClause(String streamId) {
         String clause = Constants.FROM + " " + streamId;
-        return null;
+        return clause;
     }
 
     @Override
@@ -34,8 +35,9 @@ public class WindowStreamHandler implements StreamHandler {
     }
 
     private String generateWhereClause(Filter filter) {
-        //TODO
-        return null;
+        ConditionHandler conditionHandler = new ConditionHandler();
+        String filterStr = conditionHandler.processCondition(filter.getFilterCondition());
+        return Constants.WHERE + " " + filterStr;
 
     }
 }
