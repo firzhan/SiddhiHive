@@ -1,8 +1,9 @@
-package org.wso2.carbon.siddhihive.querygenerator;
+package org.wso2.carbon.siddhihive.samples;
 
 import java.util.HashMap;
+import org.wso2.carbon.siddhihive.querygenerator.*;
 
-public class TestMain {
+public class TestQueryGenerator {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
