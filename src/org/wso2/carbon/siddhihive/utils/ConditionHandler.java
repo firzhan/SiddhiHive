@@ -7,7 +7,7 @@ import org.wso2.siddhi.query.api.expression.constant.Constant;
 import org.wso2.siddhi.query.api.expression.constant.IntConstant;
 
 /**
- * Created by root on 6/2/14.
+ * Created by Firzhan on 6/2/14.
  */
 public class ConditionHandler {
 
