@@ -7,7 +7,7 @@ import org.wso2.siddhi.query.api.expression.constant.Constant;
 import org.wso2.siddhi.query.api.expression.constant.IntConstant;
 
 /**
- * Created by root on 6/2/14.
+ * Created by Firzhan on 6/2/14.
  */
 public class ConditionHandler {
 
@@ -25,7 +25,9 @@ public class ConditionHandler {
         if (condition instanceof Compare) {
             handleCondition += handleCompareCondition((Compare) condition);
         } else if (condition instanceof AndCondition) {
-            //do
+            String leftCondition = processCondition(((AndCondition) condition).getLeftCondition());
+            String rightCondition = processCondition(((AndCondition) condition).getRightCondition());
+            handleCondition += leftCondition + Constants.AND + rightCondition;
         } else if (condition instanceof BooleanCondition) {
             //do
         } else if (condition instanceof InCondition) {
@@ -33,7 +35,9 @@ public class ConditionHandler {
         } else if (condition instanceof NotCondition) {
             //do
         } else if (condition instanceof OrCondition) {
-            //do
+            String leftCondition = processCondition(((OrCondition) condition).getLeftCondition());
+            String rightCondition = processCondition(((OrCondition) condition).getRightCondition());
+            handleCondition += leftCondition + Constants.OR + rightCondition;
         }
 
         return handleCondition;

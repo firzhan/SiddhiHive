@@ -4,26 +4,22 @@ package org.wso2.carbon.siddhihive.selectorprocessor;
  * Created by root on 5/30/14.
  */
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.wso2.siddhi.query.api.condition.Compare;
+import org.wso2.siddhi.query.api.condition.Condition;
+import org.wso2.siddhi.query.api.expression.Expression;
+import org.wso2.siddhi.query.api.expression.Variable;
 import org.wso2.siddhi.query.api.expression.constant.Constant;
 import org.wso2.siddhi.query.api.expression.constant.IntConstant;
 import org.wso2.siddhi.query.api.query.Query;
 import org.wso2.siddhi.query.api.query.selection.Selector;
-
-
-import org.wso2.siddhi.query.api.query.selection.attribute.OutputAttribute;
-import org.wso2.siddhi.query.api.query.selection.attribute.SimpleAttribute;
 import org.wso2.siddhi.query.api.query.selection.attribute.ComplexAttribute;
-import org.wso2.siddhi.query.api.query.selection.attribute.OutputAttributeExtension;// < Future extension >
+import org.wso2.siddhi.query.api.query.selection.attribute.OutputAttribute;
+import org.wso2.siddhi.query.api.query.selection.attribute.OutputAttributeExtension;
+import org.wso2.siddhi.query.api.query.selection.attribute.SimpleAttribute;
 
-import org.wso2.siddhi.query.api.expression.Expression;
-import org.wso2.siddhi.query.api.expression.Variable;
-
-import org.wso2.siddhi.query.api.condition.Condition;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class QuerySelectorProcessor {

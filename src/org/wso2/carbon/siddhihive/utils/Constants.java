@@ -2,7 +2,6 @@ package org.wso2.carbon.siddhihive.utils;
 
 
 public final class Constants {
-	
     public final static String TIME_WINDOW = "time";
     public final static String FROM_TIME = "fromTime";
     public final static String TO_TIME = "toTime";
@@ -21,4 +20,6 @@ public final class Constants {
 	public static final String DOUBLE = "DOUBLE";
 	public static final String TIMESTAMP = "TIMESTAMP";
 	public static final String VARCHAR = "VARCHAR";
+    public static final String AND = "AND";
+    public static final String OR = "OR";
 }
