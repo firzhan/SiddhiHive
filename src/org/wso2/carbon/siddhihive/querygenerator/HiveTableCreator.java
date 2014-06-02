@@ -6,13 +6,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.wso2.carbon.siddhihive.utils.HiveQueryGenerator;
 import org.wso2.siddhi.core.SiddhiManager;
 import org.wso2.siddhi.query.api.definition.Attribute;
 import org.wso2.siddhi.query.api.definition.StreamDefinition;
 import org.wso2.siddhi.query.api.query.Query;
 
-public final class HiveTableCreate extends HiveQueryGenerator {
+public final class HiveTableCreator extends HiveQueryGenerator {
 	//**********************************************************************************************
 	private String sQuery = "";
 	private String sProperties = "";
@@ -22,7 +21,7 @@ public final class HiveTableCreate extends HiveQueryGenerator {
 	Map<String, String> mapColumns;
 	
 	//**********************************************************************************************
-	public HiveTableCreate() {
+	public HiveTableCreator() {
 		super();
     }
 	
@@ -35,7 +34,7 @@ public final class HiveTableCreate extends HiveQueryGenerator {
             List<Attribute> attributeList = streamDefinition.getAttributeList();
             mapColumns = new HashMap<String, String>();
             Attribute attribute = null;
-            for(int i = 0; i < attributeList.size(); i++){
+            for(int i = 0; i < attributeList.size(); i++) {
                 attribute = attributeList.get(i);
                 mapColumns.put(attribute.getName(), typeToString(attribute.getType()));
             }

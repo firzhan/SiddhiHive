@@ -15,7 +15,7 @@ public final class Constants {
     public static final String FROM = "from";
     public static final String WHERE = "where";
     
-  //**********************************************************************************************
+    //**********************************************************************************************
 	public static final String STRING = "STRING";
 	public static final String INT = "INT";
 	public static final String DOUBLE = "DOUBLE";
