@@ -1,5 +1,6 @@
-package org.wso2.carbon.siddhihive.utils;
+package org.wso2.carbon.siddhihive.querygenerator;
 
+import org.wso2.carbon.siddhihive.utils.Constants;
 import org.wso2.siddhi.query.api.definition.Attribute;
 
 public abstract class HiveQueryGenerator {

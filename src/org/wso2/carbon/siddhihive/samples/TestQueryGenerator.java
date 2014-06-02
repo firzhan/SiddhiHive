@@ -9,7 +9,7 @@ public class TestQueryGenerator {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		HiveTableCreate a = new HiveTableCreate();
+		HiveTableCreator a = new HiveTableCreator();
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("col1", Constants.STRING);
 		map.put("col2", Constants.INT);
