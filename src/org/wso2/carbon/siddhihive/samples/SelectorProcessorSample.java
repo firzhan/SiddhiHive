@@ -33,5 +33,21 @@ public class SelectorProcessorSample {
 
             System.out.println(value.toString());
         }
+
+        System.out.println("+++++++++++++++++++++++++++");
+        queryID = siddhiManager.addQuery(" from StockExchangeStream[price >= 20]#window.length(50) " +
+                " select symbol, max(price) as maxPrice, avg(price) as avgPrice, count(price) as cnt " +
+                " group by symbol having avgPrice>50 " +
+                " insert into ABCStockQuote;");
+
+        query = siddhiManager.getQuery(queryID);
+
+        map = (HashMap<String, String>)selectorProcessor.handleSelector(query);
+
+        for (Object value : map.values()) {
+
+            System.out.println(value.toString());
+        }
+
     }
 }
