@@ -23,8 +23,7 @@ public final class HiveTableCreator extends HiveQueryGenerator {
     }
 	
 	//**********************************************************************************************
-	public String getQuery(Query query, SiddhiHiveManager siddhiHiveManager) {
-		String streamID = query.getOutputStream().getStreamId();
+	public String getQuery(String streamID, SiddhiHiveManager siddhiHiveManager) {
 		StreamDefinition streamDefinition = siddhiHiveManager.getStreamDefinition(streamID);
 
         if(streamDefinition != null){
