@@ -12,7 +12,7 @@ import org.wso2.siddhi.query.api.query.input.handler.Filter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WindowStreamHandler implements StreamHandler {
+public class WindowStreamHandler extends BasicStreamHandler {
 
     private String windowIsolatorClause;
     private String fromClause;
@@ -23,12 +23,6 @@ public class WindowStreamHandler implements StreamHandler {
 
     public WindowStreamHandler() {
         this.windowIsolator = new WindowIsolator();
-    }
-
-
-    public String generateFromClause(String streamId) {
-        String clause = Constants.FROM + " " + streamId;
-        return clause;
     }
 
     @Override
@@ -44,10 +38,4 @@ public class WindowStreamHandler implements StreamHandler {
         return result;
     }
 
-    private String generateWhereClause(Filter filter) {
-        ConditionHandler conditionHandler = new ConditionHandler();
-        String filterStr = conditionHandler.processCondition(filter.getFilterCondition());
-        return Constants.WHERE + " " + filterStr;
-
-    }
 }
