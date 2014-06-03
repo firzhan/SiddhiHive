@@ -1,6 +1,7 @@
 package org.wso2.carbon.siddhihive.headerprocessor;
 
 
+import org.wso2.carbon.siddhihive.SiddhiHiveManager;
 import org.wso2.carbon.siddhihive.handler.ConditionHandler;
 import org.wso2.carbon.siddhihive.utils.Constants;
 import org.wso2.siddhi.query.api.definition.StreamDefinition;
@@ -31,9 +32,9 @@ public class WindowStreamHandler implements StreamHandler {
     }
 
     @Override
-    public Map<String, String> process(Stream stream, StreamDefinition streamDefinition) {
+    public Map<String, String> process(Stream stream) {
         this.windowStream = (WindowStream) stream;
-        windowIsolatorClause = windowIsolator.process(windowStream.getWindow(), streamDefinition);
+        windowIsolatorClause = windowIsolator.process(windowStream.getWindow(), SiddhiHiveManager.getInstance().getStreamDefinition(((WindowStream) stream).getStreamId()));
         fromClause = generateFromClause(windowStream.getStreamId());
         whereClause = generateWhereClause(windowStream.getFilter());
         result = new HashMap<String, String>();
