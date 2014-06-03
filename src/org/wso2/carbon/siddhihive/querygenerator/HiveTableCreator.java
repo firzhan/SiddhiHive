@@ -2,7 +2,8 @@ package org.wso2.carbon.siddhihive.querygenerator;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.wso2.siddhi.core.SiddhiManager;
+
+import org.wso2.carbon.siddhihive.SiddhiHiveManager;
 import org.wso2.siddhi.query.api.definition.Attribute;
 import org.wso2.siddhi.query.api.definition.StreamDefinition;
 import org.wso2.siddhi.query.api.query.Query;
@@ -22,9 +23,9 @@ public final class HiveTableCreator extends HiveQueryGenerator {
     }
 	
 	//**********************************************************************************************
-	public String getQuery(Query query, SiddhiManager siddhiManager) {
+	public String getQuery(Query query, SiddhiHiveManager siddhiHiveManager) {
 		String streamID = query.getOutputStream().getStreamId();
-		StreamDefinition streamDefinition = siddhiManager.getStreamDefinition(streamID);
+		StreamDefinition streamDefinition = siddhiHiveManager.getStreamDefinition(streamID);
 
         if(streamDefinition != null){
             List<Attribute> attributeList = streamDefinition.getAttributeList();
