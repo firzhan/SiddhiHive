@@ -11,7 +11,6 @@ import org.wso2.siddhi.query.api.condition.AndCondition;
 import org.wso2.siddhi.query.api.condition.Condition;
 import org.wso2.siddhi.query.api.condition.OrCondition;
 import org.wso2.siddhi.query.api.expression.Variable;
-import org.wso2.siddhi.query.api.query.Query;
 import org.wso2.siddhi.query.api.query.selection.Selector;
 import org.wso2.siddhi.query.api.query.selection.attribute.ComplexAttribute;
 import org.wso2.siddhi.query.api.query.selection.attribute.OutputAttribute;
@@ -37,22 +36,20 @@ public class QuerySelectorProcessor {
         selectorQueryMap = new ConcurrentHashMap<String, String>();
     }
 
-    public boolean handleSelector(Query query) {
+    public boolean handleSelector(Selector selector) {
 
-        if (query == null)
+        if (selector == null)
             return false;
 
         selectorQueryMap.clear();
-
-        Selector selector = query.getSelector();
 
         String selectionQuery = handleSelectionList(selector);
         String groupByQuery = handleGroupByList(selector);
         String handle = handleHavingCondition(selector);
 
-        selectorQueryMap.put("selectionQuery", selectionQuery);
-        selectorQueryMap.put("groupByQuery", groupByQuery);
-        selectorQueryMap.put("havingQuery", handle);
+        selectorQueryMap.put(Constants.SELECTION_QUERY, selectionQuery);
+        selectorQueryMap.put(Constants.GROUP_BY_QUERY, groupByQuery);
+        selectorQueryMap.put(Constants.HAVING_QUERY, handle);
 
         return true;
     }

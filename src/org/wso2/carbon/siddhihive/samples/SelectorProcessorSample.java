@@ -7,7 +7,6 @@ import org.wso2.siddhi.query.api.definition.StreamDefinition;
 import org.wso2.siddhi.query.api.query.Query;
 
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 
 
 /**
@@ -44,7 +43,7 @@ public class SelectorProcessorSample {
 //                "insert into FastMovingStockQuotes;
 
         System.out.println("+++++++++++++++++++++++++++");
-        String queryID = siddhiManager.addQuery(" from StockExchangeStream#window.time(1 min)\n" +
+        String queryID = siddhiManager.addQuery(" from StockExchangeStream[symbol == \"IBM\"]#window.time(6000)\n" +
                 "select symbol,price, avg(price) as averagePrice \n" +
                 "group by symbol, price\n" +
                 "having ((price > averagePrice*1.02) and ( (averagePrice*0.98 > price) or (averagePrice*0.98 < price) ))\n" +
@@ -63,17 +62,18 @@ public class SelectorProcessorSample {
             siddhiHiveManager.setStreamDefinition(streamDefinition.getStreamId(), streamDefinition);
         }
 
-
-        ConcurrentHashMap<String, String> map = null;
-
-        if (selectorProcessor.handleSelector(query)) {
-            map = (ConcurrentHashMap<String, String>) selectorProcessor.getSelectorQueryMap();
-        }
-
-        for (Object value : map.values()) {
-
-            System.out.println(value.toString());
-        }
+        String hiveQuery = siddhiHiveManager.getQuery(query);
+        System.out.println(hiveQuery);
+//        ConcurrentHashMap<String, String> map = null;
+//
+//        if (selectorProcessor.handleSelector(query)) {
+//            map = (ConcurrentHashMap<String, String>) selectorProcessor.getSelectorQueryMap();
+//        }
+//
+//        for (Object value : map.values()) {
+//
+//            System.out.println(value.toString());
+//        }
 
     }
 }
