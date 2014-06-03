@@ -6,7 +6,6 @@ import java.util.List;
 import org.wso2.carbon.siddhihive.SiddhiHiveManager;
 import org.wso2.siddhi.query.api.definition.Attribute;
 import org.wso2.siddhi.query.api.definition.StreamDefinition;
-import org.wso2.siddhi.query.api.query.Query;
 
 public final class HiveTableCreator extends HiveQueryGenerator {
 	//**********************************************************************************************
@@ -23,19 +22,15 @@ public final class HiveTableCreator extends HiveQueryGenerator {
     }
 	
 	//**********************************************************************************************
-	public String getQuery(Query query, SiddhiHiveManager siddhiHiveManager) {
-		String streamID = query.getOutputStream().getStreamId();
-		StreamDefinition streamDefinition = siddhiHiveManager.getStreamDefinition(streamID);
-
-        if(streamDefinition != null){
-            List<Attribute> attributeList = streamDefinition.getAttributeList();
-            listColumns = new ArrayList<HiveField>();
-            Attribute attribute = null;
-            for(int i = 0; i < attributeList.size(); i++) {
-                attribute = attributeList.get(i);
-                listColumns.add(new HiveField(attribute.getName(), typeToString(attribute.getType())));
-            }
+	public String getQuery(StreamDefinition streamDefinition) {
+        List<Attribute> attributeList = streamDefinition.getAttributeList();
+        listColumns = new ArrayList<HiveField>();
+        Attribute attribute = null;
+        for(int i = 0; i < attributeList.size(); i++) {
+            attribute = attributeList.get(i);
+            listColumns.add(new HiveField(attribute.getName(), typeToString(attribute.getType())));
         }
+        
 		return getQuery();
 	}
 	
