@@ -1,7 +1,7 @@
 package org.wso2.carbon.siddhihive.headerprocessor;
 
 
-import org.wso2.carbon.siddhihive.utils.ConditionHandler;
+import org.wso2.carbon.siddhihive.handler.ConditionHandler;
 import org.wso2.carbon.siddhihive.utils.Constants;
 import org.wso2.siddhi.query.api.definition.StreamDefinition;
 import org.wso2.siddhi.query.api.query.input.Stream;
