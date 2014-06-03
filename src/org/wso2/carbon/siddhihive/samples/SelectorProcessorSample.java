@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class SelectorProcessorSample {
 
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
 
         SiddhiManager siddhiManager = new SiddhiManager();
 
@@ -59,7 +59,6 @@ public class SelectorProcessorSample {
 
             System.out.println(value.toString());
         }
-
 
     }
 }

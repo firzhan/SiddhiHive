@@ -11,16 +11,28 @@ Class to manage query conversion in higher level. Will call appropriate handlers
  */
 public class SiddhiHiveManager {
 
+    private static SiddhiHiveManager siddhiHiveManager = null;
 
     private ConcurrentMap<String, StreamDefinition> streamDefinitionMap; //contains stream definition
     private ConcurrentMap<String, String> queryMap;
 
-    public SiddhiHiveManager(StreamDefinition streamDefinition) {
+    private SiddhiHiveManager(/*StreamDefinition streamDefinition*/) {
+
+        //siddhiHiveManager = null;
+
         streamDefinitionMap = new ConcurrentHashMap<String, StreamDefinition>();
-        streamDefinitionMap.put(streamDefinition.getStreamId(), streamDefinition);
+        //streamDefinitionMap.put(streamDefinition.getStreamId(), streamDefinition);
 
         //New Query Map
         queryMap = new ConcurrentHashMap<String, String>();
+    }
+
+    public static SiddhiHiveManager getInstance() {
+
+        if (siddhiHiveManager == null)
+            siddhiHiveManager = new SiddhiHiveManager();
+
+        return siddhiHiveManager;
     }
 
     public ConcurrentMap<String, StreamDefinition> getStreamDefinitionMap() {
@@ -29,6 +41,10 @@ public class SiddhiHiveManager {
 
     public void setStreamDefinitionMap(ConcurrentMap<String, StreamDefinition> streamDefinitionMap) {
         this.streamDefinitionMap = streamDefinitionMap;
+    }
+
+    public void setStreamDefinition(String streamDefinitionID, StreamDefinition streamDefinition) {
+        streamDefinitionMap.put(streamDefinitionID, streamDefinition);
     }
 
     public StreamDefinition getStreamDefinition(String streamId) {
@@ -42,7 +58,10 @@ public class SiddhiHiveManager {
 //
 //        String hiveQuery = "";
 //
-//        Stream stream = query.getInputStream();
+//
+//
+//        WindowStreamHandler windowStreamHandler = new WindowStreamHandler();
+//        HashMap<String, String> windowStreamMap = windowStreamHandler.process()
 //
 //
 //
