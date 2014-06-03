@@ -3,13 +3,13 @@ package org.wso2.carbon.siddhihive.querygenerator;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.wso2.carbon.siddhihive.SiddhiHiveManager;
 import org.wso2.siddhi.query.api.definition.Attribute;
 import org.wso2.siddhi.query.api.definition.StreamDefinition;
 
 public final class HiveTableCreator extends HiveQueryGenerator {
 	//**********************************************************************************************
-	private String sQuery = "";
+	private String sCreateQuery = "";
+	private String sInsertQuery = "";
 	private String sProperties = "";
 	private String sRowFormat = "ROW FORMAT DELIMITED FIELDS TERMINATED BY ','";
 	private String sStoredAs = "STORED AS SEQUENCEFILE";
@@ -22,7 +22,8 @@ public final class HiveTableCreator extends HiveQueryGenerator {
     }
 	
 	//**********************************************************************************************
-	public String getQuery(StreamDefinition streamDefinition) {
+	public void setQuery(StreamDefinition streamDefinition) {
+		sDBName = streamDefinition.getStreamId();
         List<Attribute> attributeList = streamDefinition.getAttributeList();
         listColumns = new ArrayList<HiveField>();
         Attribute attribute = null;
@@ -30,19 +31,16 @@ public final class HiveTableCreator extends HiveQueryGenerator {
             attribute = attributeList.get(i);
             listColumns.add(new HiveField(attribute.getName(), typeToString(attribute.getType())));
         }
-        
-		return getQuery();
 	}
 	
 	//**********************************************************************************************
-	public String getQuery(String sDB, List<HiveField> listFields) {
+	public void setQuery(String sDB, List<HiveField> listFields) {
 		sDBName = sDB;
 		listColumns = listFields;
-		return getQuery();
 	}
 	
 	//**********************************************************************************************
-	private String getQuery() {
+	public String getCreateQuery() {
 		sProperties = "";
 		
 		if (listColumns.size() <= 0)
@@ -53,7 +51,18 @@ public final class HiveTableCreator extends HiveQueryGenerator {
 			sProperties += (", " + listColumns.get(i).getFieldName() + " " + listColumns.get(i).getDataType());
 		}
 		
-		sQuery = ("CREATE TABLE IF NOT EXISTS " + sDBName + " (" + sProperties + ") " + sRowFormat + " " +  sStoredAs + ";");
-		return sQuery;
-	}	
+		sCreateQuery = ("CREATE TABLE IF NOT EXISTS " + sDBName + " (" + sProperties + ") " + sRowFormat + " " +  sStoredAs + ";");
+		return sCreateQuery;
+	}
+	
+	//**********************************************************************************************
+	public String getInsertQuery() {
+		sInsertQuery = "";
+		
+		if (sDBName.length() <= 0) 
+			return null;
+		
+		sInsertQuery = "INSERT OVERWRITE TABLE " + sDBName + " ";
+		return sInsertQuery;
+	}
 }
