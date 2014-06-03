@@ -1,9 +1,12 @@
 package org.wso2.carbon.siddhihive.samples;
 
+import org.wso2.carbon.siddhihive.SiddhiHiveManager;
 import org.wso2.carbon.siddhihive.selectorprocessor.QuerySelectorProcessor;
 import org.wso2.siddhi.core.SiddhiManager;
+import org.wso2.siddhi.query.api.definition.StreamDefinition;
 import org.wso2.siddhi.query.api.query.Query;
 
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 
@@ -48,6 +51,18 @@ public class SelectorProcessorSample {
                 "insert into FastMovingStockQuotes;");
 
         Query query = siddhiManager.getQuery(queryID);
+
+
+        List<StreamDefinition> streamDefinitionList = siddhiManager.getStreamDefinitions();
+
+        SiddhiHiveManager siddhiHiveManager = SiddhiHiveManager.getInstance();
+
+        for (int i = 0; i < streamDefinitionList.size(); ++i) {
+
+            StreamDefinition streamDefinition = streamDefinitionList.get(i);
+            siddhiHiveManager.setStreamDefinition(streamDefinition.getStreamId(), streamDefinition);
+        }
+
 
         ConcurrentHashMap<String, String> map = null;
 
