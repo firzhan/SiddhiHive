@@ -8,5 +8,5 @@ import java.util.Map;
 
 public interface StreamHandler {
 
-    public Map<String, String> process(Stream stream, StreamDefinition streamDefinition);
+    public Map<String, String> process(Stream stream);
 }
