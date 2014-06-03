@@ -22,9 +22,17 @@ public final class Constants {
 	public static final String VARCHAR = "VARCHAR";
     public static final String AND = "AND";
     public static final String OR = "OR";
+    public static final String FROM_CLAUSE = "fromClause";
+    public static final String WHERE_CLAUSE = "whereClause";
+    public static final String INCREMENTAL_CLAUSE = "incremental";
 
     public static final String HAVING = " having ";
     public static final String OPENING_BRACT = " ( ";
     public static final String CLOSING_BRACT = " ) ";
     public static final String SPACE = "  ";
+
+    public static final String SELECTION_QUERY = "selectionQuery";
+    public static final String GROUP_BY_QUERY = "groupByQuery";
+    public static final String HAVING_QUERY = "havingQuery";
+
 }
