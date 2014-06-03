@@ -4,7 +4,8 @@ import org.wso2.carbon.siddhihive.selectorprocessor.QuerySelectorProcessor;
 import org.wso2.siddhi.core.SiddhiManager;
 import org.wso2.siddhi.query.api.query.Query;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
+
 
 /**
  * Created by firzhan on 6/1/14.
@@ -48,7 +49,11 @@ public class SelectorProcessorSample {
 
         Query query = siddhiManager.getQuery(queryID);
 
-        HashMap<String, String> map = (HashMap<String, String>)selectorProcessor.handleSelector(query);
+        ConcurrentHashMap<String, String> map = null;
+
+        if (selectorProcessor.handleSelector(query)) {
+            map = (ConcurrentHashMap<String, String>) selectorProcessor.getSelectorQueryMap();
+        }
 
         for (Object value : map.values()) {
 
