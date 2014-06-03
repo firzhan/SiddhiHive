@@ -3,6 +3,7 @@ package org.wso2.carbon.siddhihive.headerprocessor;
 
 import org.wso2.carbon.siddhihive.utils.Constants;
 import org.wso2.siddhi.query.api.definition.StreamDefinition;
+import org.wso2.siddhi.query.api.expression.constant.IntConstant;
 import org.wso2.siddhi.query.api.expression.constant.LongConstant;
 import org.wso2.siddhi.query.api.query.input.handler.Window;
 
@@ -20,6 +21,7 @@ public class WindowIsolator {
     }
 
     public String process(Window window, StreamDefinition streamDefinition) {
+
         this.type = window.getName();
         if (type.equals(Constants.TIME_WINDOW)) {
             this.populateForTimeWindow(window);
@@ -49,7 +51,7 @@ public class WindowIsolator {
     private void populateForTimeWindow(Window window) {
         propertyMap = new HashMap<String, String>();
         long currentTime = System.currentTimeMillis();
-        long duration = ((LongConstant) window.getParameters()[0]).getValue();
+        long duration = (long) ((IntConstant) window.getParameters()[0]).getValue();
         long toTime = currentTime + duration;
         propertyMap.put(Constants.FROM_TIME, String.valueOf(currentTime));
         propertyMap.put(Constants.TO_TIME, String.valueOf(toTime));
