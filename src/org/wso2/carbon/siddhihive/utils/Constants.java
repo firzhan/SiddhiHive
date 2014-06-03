@@ -22,4 +22,9 @@ public final class Constants {
 	public static final String VARCHAR = "VARCHAR";
     public static final String AND = "AND";
     public static final String OR = "OR";
+
+    public static final String HAVING = " having ";
+    public static final String OPENING_BRACT = " ( ";
+    public static final String CLOSING_BRACT = " ) ";
+    public static final String SPACE = "  ";
 }
