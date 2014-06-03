@@ -16,9 +16,9 @@ public class TestQueryGenerator {
 		map.add(new HiveField("col2", Constants.INT));
 		map.add(new HiveField("col3", Constants.DOUBLE));
 		map.add(new HiveField("col4", Constants.INT));
-		System.out.println(a.getQuery("mydb", map));
+		a.setQuery("mydb", map);
+		System.out.println(a.getCreateQuery());
+		System.out.println(a.getInsertQuery());
 		map.clear();
-		map.add(new HiveField("col5", Constants.INT));
-		System.out.println(a.getQuery("mydb", map));
 	}
 }
