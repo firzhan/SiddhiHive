@@ -17,7 +17,8 @@ public class TestQueryGenerator {
 		map.add(new HiveField("col3", Constants.DOUBLE));
 		map.add(new HiveField("col4", Constants.INT));
 		a.setQuery("mydb", map);
-		System.out.println(a.getCreateQuery());
+		System.out.println(a.getCSVTableCreateQuery());
+		System.out.println(a.getCassandraTableCreateQuery());
 		System.out.println(a.getInsertQuery());
 		map.clear();
 	}

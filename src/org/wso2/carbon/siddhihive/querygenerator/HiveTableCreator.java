@@ -1,24 +1,22 @@
 package org.wso2.carbon.siddhihive.querygenerator;
 
-<<<<<<< HEAD
+
 import java.util.ArrayList;
 import java.util.List;
 
-=======
->>>>>>> 0b9d28a3cb12aac5436f4571fed809d54f91d5b8
+import org.wso2.carbon.siddhihive.utils.Constants;
 import org.wso2.siddhi.query.api.definition.Attribute;
 import org.wso2.siddhi.query.api.definition.StreamDefinition;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public final class HiveTableCreator extends HiveQueryGenerator {
 	//**********************************************************************************************
 	private String sCreateQuery = "";
 	private String sInsertQuery = "";
-	private String sProperties = "";
-	private String sRowFormat = "ROW FORMAT DELIMITED FIELDS TERMINATED BY ','";
-	private String sStoredAs = "STORED AS SEQUENCEFILE";
+	private String sCassandraQuery = "";
+	private String sColumns = "";
+	private String sCassandraProperties = "";
+	private String sCassandraColumns = "";
+
 	String sDBName;
 	List<HiveField> listColumns;
 	
@@ -47,22 +45,6 @@ public final class HiveTableCreator extends HiveQueryGenerator {
 	}
 	
 	//**********************************************************************************************
-	public String getCreateQuery() {
-		sProperties = "";
-		
-		if (listColumns.size() <= 0)
-			return null;
-		
-		sProperties = listColumns.get(0).getFieldName() + " " + listColumns.get(0).getDataType();
-		for (int i = 1; i < listColumns.size(); i++) {
-			sProperties += (", " + listColumns.get(i).getFieldName() + " " + listColumns.get(i).getDataType());
-		}
-		
-		sCreateQuery = ("CREATE TABLE IF NOT EXISTS " + sDBName + " (" + sProperties + ") " + sRowFormat + " " +  sStoredAs + ";");
-		return sCreateQuery;
-	}
-	
-	//**********************************************************************************************
 	public String getInsertQuery() {
 		sInsertQuery = "";
 		
@@ -71,5 +53,55 @@ public final class HiveTableCreator extends HiveQueryGenerator {
 		
 		sInsertQuery = "INSERT OVERWRITE TABLE " + sDBName + " ";
 		return sInsertQuery;
+	}
+	
+	//**********************************************************************************************
+	public String getCSVTableCreateQuery() {		
+		if (listColumns.size() <= 0)
+			return null;
+		
+		fillColumnString();
+		
+		sCreateQuery = ("CREATE TABLE IF NOT EXISTS " + sDBName + " (" + sColumns + ") " + 
+				"ROW FORMAT DELIMITED FIELDS TERMINATED BY ','" + " " +  "STORED AS SEQUENCEFILE" + ";");
+		return sCreateQuery;
+	}
+	
+	//**********************************************************************************************
+	public String getCassandraTableCreateQuery() {		
+		if (listColumns.size() <= 0)
+			return null;
+		
+		fillColumnString();
+		fillCassandraProperties();
+		
+		sCassandraQuery = ("CREATE EXTERNAL TABLE IF NOT EXISTS " + sDBName + " (" + sColumns +
+				") STORED BY \'org.apache.hadoop.hive.cassandra.CassandraStorageHandler\' WITH SERDEPROPERTIES " +
+				"(" + sCassandraProperties +");");
+		
+		return sCassandraQuery;
+	}
+	
+	//**********************************************************************************************
+	private void fillColumnString() {
+		sColumns = listColumns.get(0).getFieldName() + " " + listColumns.get(0).getDataType();
+		for (int i = 1; i < listColumns.size(); i++) {
+			sColumns += (", " + listColumns.get(i).getFieldName() + " " + listColumns.get(i).getDataType());
+		}
+	}
+	
+	//**********************************************************************************************
+	private void fillCassandraProperties() {
+		fillCassandraColumnString();
+		
+		sCassandraProperties = ("\"wso2.carbon.datasource.name\" = \""+Constants.CASSANDRA_DATASOURCE+"\", "
+				+"\"cassandra.columns.mapping\" = \""+sCassandraColumns+"\"");
+	}
+	
+	private void fillCassandraColumnString() {
+		sCassandraColumns = ":key";
+		for (int i=0; i<listColumns.size(); i++) {
+			sCassandraColumns += (", payload_" + listColumns.get(i).getFieldName());
+		}
 	}
 }

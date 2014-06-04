@@ -34,5 +34,6 @@ public final class Constants {
     public static final String SELECTION_QUERY = "selectionQuery";
     public static final String GROUP_BY_QUERY = "groupByQuery";
     public static final String HAVING_QUERY = "havingQuery";
-
+    
+    public static final String CASSANDRA_DATASOURCE = "WSO2BAM_CASSANDRA_DATASOURCE";
 }
