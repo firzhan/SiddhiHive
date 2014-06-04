@@ -52,6 +52,7 @@ public final class HiveTableCreator extends HiveQueryGenerator {
 			return null;
 		
 		sInsertQuery = "INSERT OVERWRITE TABLE " + sDBName + " ";
+		
 		return sInsertQuery;
 	}
 	
@@ -64,6 +65,7 @@ public final class HiveTableCreator extends HiveQueryGenerator {
 		
 		sCreateQuery = ("CREATE TABLE IF NOT EXISTS " + sDBName + " (" + sColumns + ") " + 
 				"ROW FORMAT DELIMITED FIELDS TERMINATED BY ','" + " " +  "STORED AS SEQUENCEFILE" + ";");
+		
 		return sCreateQuery;
 	}
 	
@@ -78,6 +80,7 @@ public final class HiveTableCreator extends HiveQueryGenerator {
 		sCassandraQuery = ("CREATE EXTERNAL TABLE IF NOT EXISTS " + sDBName + " (" + sColumns +
 				") STORED BY \'org.apache.hadoop.hive.cassandra.CassandraStorageHandler\' WITH SERDEPROPERTIES " +
 				"(" + sCassandraProperties +");");
+		
 		
 		return sCassandraQuery;
 	}
@@ -98,6 +101,7 @@ public final class HiveTableCreator extends HiveQueryGenerator {
 				+"\"cassandra.columns.mapping\" = \""+sCassandraColumns+"\"");
 	}
 	
+	//**********************************************************************************************
 	private void fillCassandraColumnString() {
 		sCassandraColumns = ":key";
 		for (int i=0; i<listColumns.size(); i++) {
